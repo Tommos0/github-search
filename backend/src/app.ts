@@ -1,4 +1,5 @@
 import express from "express";
+import GithubClient from "./GithubClient";
 
 const app = express();
 
@@ -13,8 +14,16 @@ app.get('/', (req, res) => {
     );
 });
 
-app.get('/test', (req, res) => {
-    res.send(req.query)
+app.get('/users', async (req, res) => {
+    const { q, ...options } = req.query;
+    const client = new GithubClient();
+    try {
+        const result = await client.users(q, options);
+        res.send(result.items);
+    } catch (e) {
+        res.status(400);
+        res.send(e.toString());
+    }
 });
 
 export default app;
