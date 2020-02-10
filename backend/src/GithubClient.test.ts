@@ -1,7 +1,7 @@
 import GithubClient from "./GithubClient";
 
 describe('GithubClient', () => {
-    test('user/tommos0', async () => {
+    test('search/tommos0', async () => {
         const client = new GithubClient();
         const response = await client.users('tommos0');
         expect(response.items[0].login).toEqual('Tommos0');
@@ -29,5 +29,10 @@ describe('GithubClient', () => {
         const logins1 = resp1.items.map(item => item.login);
         const logins2 = resp2.items.map(item => item.login);
         expect(logins1.slice(5)).toEqual(logins2);
+    });
+    test('user/tommos0', async () => {
+        const client = new GithubClient();
+        const resp = await client.user('tommos0');
+        expect(resp.login).toBe('Tommos0');
     });
 });
