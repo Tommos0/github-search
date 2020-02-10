@@ -1,55 +1,33 @@
 import React from "react";
 import {
-    BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    useHistory,
 } from "react-router-dom";
+import { User } from "./client";
+import Search from "./components/Search";
+import UsersSearch from "./components/UsersSearch";
+import UserDetails from "./components/UserDetails";
 
 export default function App() {
+    const history = useHistory();
+    const startSearch = (query: string) => history.push('/search/' + query);
+    const onUserClick = (user: User) => history.push('/user/' + user.login);
     return (
-        <Router>
-            <div>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/about">About</Link>
-                        </li>
-                        <li>
-                            <Link to="/users">Users</Link>
-                        </li>
-                    </ul>
-                </nav>
+        <div>
+            <Search onSearch={startSearch}/>
 
-                {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-                <Switch>
-                    <Route path="/about">
-                        <About />
-                    </Route>
-                    <Route path="/users">
-                        <Users />
-                    </Route>
-                    <Route path="/">
-                        <Home />
-                    </Route>
-                </Switch>
-            </div>
-        </Router>
+            <Switch>
+                <Route path="/search/:query">
+                    { ({ match }) => <UsersSearch query={match!.params.query} onCardClick={onUserClick} /> }
+                </Route>
+                <Route path="/user/:username">
+                    { ({ match }) => <UserDetails username={match!.params.username} /> }
+                </Route>
+            </Switch>
+        </div>
     );
 }
 
-function Home() {
-    return <h2>Home</h2>;
-}
 
-function About() {
-    return <h2>About</h2>;
-}
 
-function Users() {
-    return <h2>Users</h2>;
-}

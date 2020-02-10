@@ -1,15 +1,15 @@
 import { User } from "../client";
 import React from "react";
 
-interface UserCardProps {
+interface UserCardDetailsProps {
     user: User;
-    onClick: () => any;
 }
-const UserCardSmall = ({ user, onClick }: UserCardProps) => (
-    <div className="user" onClick={onClick}>
+const UserCardDetails = ({ user }: UserCardDetailsProps) => (
+    <div className="user-card-details">
         <h1>{user.login}</h1>
         <img src={user.avatar_url} />
+        <pre>{JSON.stringify(user, undefined, 2)}</pre>
     </div>
-)
+);
 
-export default UserCardSmall;
+export default UserCardDetails;

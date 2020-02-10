@@ -6,7 +6,8 @@ interface UserProps {
     username: string;
 }
 
-function User({ username }: UserProps) {
+//todo: error handling
+function UserDetails({ username }: UserProps) {
     const [ user, setUser ] = React.useState<User>();
     const [ isLoading, setIsLoading ] = React.useState<boolean>(false);
     React.useEffect(() => {
@@ -20,11 +21,7 @@ function User({ username }: UserProps) {
     if (isLoading || !user) {
         return <div>loading...</div>
     }
-    return (
-        <div>
-            <UserCardDetails user={user} />
-        </div>
-    );
+    return <UserCardDetails user={user} />;
 }
 
-export default User
+export default UserDetails;

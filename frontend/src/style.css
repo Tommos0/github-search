@@ -1,0 +1,11 @@
+.user-card-small>img {
+    width: 4em;
+}
+
+.user-card-small {
+    padding: 1em;
+}
+
+.user-card-small:hover {
+    background-color: #ccc;
+}
